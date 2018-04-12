@@ -68,7 +68,6 @@ function watch(rootFileNames) {
 
     function emitFile(fileName) {
         let output = services.getEmitOutput(fileName);
-
         if (!output.emitSkipped) {
             console.log('Emitting ' + fileName);
         } else {
