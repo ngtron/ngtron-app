@@ -14,24 +14,35 @@ export class Database {
                     console.log('Error on opening database', error);
                     return;
                 }
-                this.createTables();
-                this.verifyVersion();
+                this.createTables().subscribe(() => {
+                    this.verifyVersion();
+                });
+
             }
         );
     }
 
-    createTables() {
-        this.execute('CREATE TABLE IF NOT EXISTS presets (' +
-            'id INTEGER PRIMARY KEY AUTOINCREMENT' +
-            ', name TEXT NOT NULL UNIQUE' +
-            ', cmd TEXT' +
-            ', ports TEXT' +
-            ', volumes TEXT' +
-            ', envs TEXT' +
-            ')');
-        this.execute('CREATE TABLE IF NOT EXISTS versions (' +
-            'id INTEGER PRIMARY KEY AUTOINCREMENT' +
-            ', version TEXT NOT NULL UNIQUE)');
+    createTables(): Observable<any> {
+        return Observable.create(observer => {
+            this.execute('CREATE TABLE IF NOT EXISTS presets (' +
+                'id INTEGER PRIMARY KEY AUTOINCREMENT' +
+                ', name TEXT NOT NULL UNIQUE' +
+                ', cmd TEXT' +
+                ', ports TEXT' +
+                ', volumes TEXT' +
+                ', envs TEXT' +
+                ')')
+                .subscribe(() => {
+                    this.execute('CREATE TABLE IF NOT EXISTS versions (' +
+                        'id INTEGER PRIMARY KEY AUTOINCREMENT' +
+                        ', version TEXT NOT NULL UNIQUE)')
+                        .subscribe(() => {
+                            observer.next();
+                            observer.complete();
+                    });
+                });
+            }
+        );
     }
 
     verifyVersion() {
@@ -42,15 +53,21 @@ export class Database {
         });
     }
 
-    // @TODO : Observable<any>
-    execute(sql: string, params?: any[]) {
-        if (params && params.length) {
-            const stmt = this.db.prepare(sql);
-            stmt.run(params);
-            stmt.finalize();
-            return;
-        }
-        this.db.run(sql);
+    execute(sql: string, params?: any[]): Observable<any> {
+        return Observable.create(observer => {
+            if (params && params.length) {
+                const stmt = this.db.prepare(sql);
+                stmt.run(params, () => {
+                    stmt.finalize();
+                    observer.next();
+                    observer.complete();
+                });
+            }
+            this.db.run(sql, () => {
+                observer.next();
+                observer.complete();
+            });
+        });
     }
 
     find(sql: string, params?: any[]): Observable<any> {
