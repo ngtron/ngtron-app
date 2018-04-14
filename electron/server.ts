@@ -12,7 +12,7 @@ export class Server {
 
     createSocket() {
         const app = http.createServer((req, res) => {
-            res.end('Please use the Angutron App');
+            res.end('Please use the NgTron App');
         });
         const io = socketio.listen(app);
         app.listen(3000, () => {

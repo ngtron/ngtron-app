@@ -1,7 +1,7 @@
 {
-    "name": "angutron",
+    "name": "ngtron",
     "version": "1.0.0",
-    "description": "Electron Framework made with Angular",
+    "description": "Electron Framework made with Angular 5",
     "main": "dist/main.js",
     "scripts": {
         "electron": "electron dist/main.js",
@@ -16,7 +16,7 @@
         "watch": "concurrently \"node watch-electron.js\" \"ng build --base-href $(pwd)/dist/app/ --watch --stats-json --output-path dist/app\"",
         "watch-and-run": "concurrently \"node watch-electron.js\" \"ng build --base-href $(pwd)/dist/app/ --watch --stats-json --output-path dist/app\" \"npm run electron\""
     },
-    "author": "Guilherme Fontenele <guilherme@fontenele.net>",
+    "author": "Guilherme Fontenele <https://github.com/fontenele>",
     "license": "MIT",
     "dependencies": {
         "@angular/animations": "^5.2.9",
@@ -69,7 +69,7 @@
         "typescript": "~2.5.3"
     },
     "engines": {
-        "node": ">= 4.2.1 <= 6",
+        "node": ">= 8.0.0",
         "npm": ">= 3"
     }
 }

@@ -1,6 +1,6 @@
 import {AppPage} from './app.po';
 
-describe('Angutron App', () => {
+describe('NgTron App', () => {
     let page: AppPage;
 
     beforeEach(() => {
