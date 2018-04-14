@@ -28,6 +28,7 @@ export class Main {
             width: 800,
             height: 600
         });
+        this.win.setMenu(null);
         this.win.on('closed', () => {
             this.win = null;
         });

@@ -1,5 +1,6 @@
 import {Component, OnDestroy} from '@angular/core';
 import {Socket} from 'ng-socket-io';
+import {FormControl} from '@angular/forms';
 
 @Component({
     selector: 'app-root',
@@ -7,7 +8,7 @@ import {Socket} from 'ng-socket-io';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnDestroy {
-    title = 'Angutron';
+    mode = new FormControl('over');
 
     constructor(private socket: Socket) {
         socket.fromEvent('message').subscribe(data => {
