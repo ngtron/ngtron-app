@@ -5,8 +5,10 @@ import {SocketIoModule, SocketIoConfig} from 'ng-socket-io';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {RouterModule} from '@angular/router';
 import {CdkTableModule} from '@angular/cdk/table';
-import {MatAutocompleteModule,
+import {
+    MatAutocompleteModule,
     MatButtonModule,
     MatButtonToggleModule,
     MatCardModule,
@@ -37,7 +39,13 @@ import {MatAutocompleteModule,
     MatTableModule,
     MatTabsModule,
     MatToolbarModule,
-    MatTooltipModule} from '@angular/material';
+    MatTooltipModule
+} from '@angular/material';
+import {MenuComponent} from './components/menu/menu.component';
+import {DashboardComponent} from './pages/dashboard/dashboard.component';
+import {ROUTES} from '../config/routes';
+import {UsersComponent} from './pages/users/users.component';
+import {HashLocationStrategy} from '@angular/common';
 
 const config: SocketIoConfig = {
     url: 'http://localhost:3000',
@@ -46,13 +54,17 @@ const config: SocketIoConfig = {
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        MenuComponent,
+        DashboardComponent,
+        UsersComponent
     ],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
         FormsModule,
         HttpClientModule,
+        CdkTableModule,
         MatAutocompleteModule,
         MatButtonModule,
         MatButtonToggleModule,
@@ -87,9 +99,10 @@ const config: SocketIoConfig = {
         MatTooltipModule,
         MatNativeDateModule,
         ReactiveFormsModule,
+        RouterModule.forRoot(ROUTES, {useHash: true, preloadingStrategy: HashLocationStrategy}),
         SocketIoModule.forRoot(config)
     ],
-    providers: [],
+    providers: [HashLocationStrategy],
     bootstrap: [AppComponent]
 })
 export class AppModule {

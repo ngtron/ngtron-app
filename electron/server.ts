@@ -1,6 +1,7 @@
 import * as http from 'http';
 import * as socketio from 'socket.io';
 import {Database} from './database';
+import chalk from 'chalk';
 
 export class Server {
     database: Database;
@@ -16,20 +17,22 @@ export class Server {
         });
         const io = socketio.listen(app);
         app.listen(3000, () => {
-            console.log('listen server on port 3000');
+            console.log(chalk.blue('[NgTron]   listen server on port 3000'));
         });
 
         io.on('connection', (socket) => {
-            socket.on('_message', (message) => {
-                console.log('_message', message);
+            socket.on('_pong', (pong) => {
+                console.log(chalk.blue('[NgTron]   pong'), chalk.green(JSON.stringify(pong)));
+                setTimeout(() => {
+                    socket.emit('_ping', {'pong': new Date().toLocaleString()});
+                }, 5000);
             });
             socket.on('disconnect', () => {
-                console.log('disconnected');
+                console.log(chalk.blue('[NgTron]   disconnected'));
             });
-            console.log('connected');
-            setTimeout(() => {
-                socket.emit('message', 4441);
-            }, 5000);
+
+            console.log(chalk.blue('[NgTron]   connected'));
+            socket.emit('_ping', {'pong': new Date().toLocaleString()});
         });
     }
 

@@ -11,11 +11,11 @@ export class AppComponent implements OnDestroy {
     mode = new FormControl('over');
 
     constructor(private socket: Socket) {
-        socket.fromEvent('message').subscribe(data => {
-            setInterval(() => {
-                socket.emit('_message', {'aaa': 123});
+        socket.fromEvent('_ping').subscribe(ping => {
+            setTimeout(() => {
+                socket.emit('_pong', {'ping': new Date().toLocaleString()});
             }, 5000);
-            console.log('data received', data);
+            console.log('ping', ping);
         });
     }
 

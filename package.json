@@ -13,8 +13,8 @@
         "lint": "ng lint",
         "e2e": "ng e2e",
         "rebuild-lib": "electron-rebuild -w sqlite3 -p",
-        "watch": "concurrently \"node watch-electron.js\" \"ng build --base-href $(pwd)/dist/app/ --watch --stats-json --output-path dist/app\"",
-        "watch-and-run": "concurrently \"node watch-electron.js\" \"ng build --base-href $(pwd)/dist/app/ --watch --stats-json --output-path dist/app\" \"npm run electron\""
+        "watch": "concurrently \"node watch-electron.js\" \"ng build --base-href $(pwd)/dist/app/index.html --watch --stats-json --output-path dist/app\"",
+        "watch-and-run": "concurrently \"node watch-electron.js\" \"ng build --base-href $(pwd)/dist/app/index.html --watch --stats-json --output-path dist/app\" \"npm run electron\""
     },
     "author": "Guilherme Fontenele <https://github.com/fontenele>",
     "license": "MIT",
@@ -31,6 +31,7 @@
         "@angular/platform-browser-dynamic": "^5.2.0",
         "@angular/router": "^5.2.0",
         "body-parser": "^1.18.2",
+        "chalk": "^2.3.2",
         "chart.js": "^2.7.2",
         "concurrently": "^3.5.1",
         "core-js": "^2.4.1",
