@@ -5,9 +5,8 @@ import {Observable} from 'rxjs/Observable';
 
 export class Database {
     db: SqDatabase;
-    config: Config = new Config();
 
-    constructor() {
+    constructor(public config: Config) {
         this.db = new SqDatabase(
             path.join(__dirname, this.config.dbName), (error) => {
                 if (error) {

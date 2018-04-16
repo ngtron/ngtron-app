@@ -46,6 +46,8 @@ import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {ROUTES} from '../config/routes';
 import {UsersComponent} from './pages/users/users.component';
 import {HashLocationStrategy} from '@angular/common';
+import {SideNavMenuModule} from 'mat-sidenav-menu';
+import { EditUserComponent } from './pages/users/edit-user/edit-user.component';
 
 const config: SocketIoConfig = {
     url: 'http://localhost:3000',
@@ -57,7 +59,8 @@ const config: SocketIoConfig = {
         AppComponent,
         MenuComponent,
         DashboardComponent,
-        UsersComponent
+        UsersComponent,
+        EditUserComponent
     ],
     imports: [
         BrowserModule,
@@ -99,6 +102,7 @@ const config: SocketIoConfig = {
         MatTooltipModule,
         MatNativeDateModule,
         ReactiveFormsModule,
+        SideNavMenuModule,
         RouterModule.forRoot(ROUTES, {useHash: true, preloadingStrategy: HashLocationStrategy}),
         SocketIoModule.forRoot(config)
     ],

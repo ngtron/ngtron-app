@@ -2,16 +2,18 @@ import * as http from 'http';
 import * as socketio from 'socket.io';
 import {Database} from './database';
 import chalk from 'chalk';
+import {Config} from './config';
 
 export class Server {
     database: Database;
 
     startServices() {
-        this.createSocket();
-        this.createDatabase();
+        const config = new Config();
+        this.createSocket(config);
+        this.createDatabase(config);
     }
 
-    createSocket() {
+    createSocket(config: Config) {
         const app = http.createServer((req, res) => {
             res.end('Please use the NgTron App');
         });
@@ -32,11 +34,15 @@ export class Server {
             });
 
             console.log(chalk.blue('[NgTron]   connected'));
+            socket.emit('_info', {
+                'name': config.name,
+                'version': config.version
+            });
             socket.emit('_ping', {'pong': new Date().toLocaleString()});
         });
     }
 
-    createDatabase() {
-        this.database = new Database();
+    createDatabase(config: Config) {
+        this.database = new Database(config);
     }
 }

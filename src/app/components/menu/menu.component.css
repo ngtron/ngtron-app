@@ -4,3 +4,6 @@ mat-list-item {
 mat-list-item:hover {
     background-color: #dddddd !important;
 }
+mat-list-item:focus {
+    border: none !important;
+}

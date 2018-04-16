@@ -38,7 +38,7 @@ export class Main {
                 defaultEncoding: 'UTF-8'
             }
         });
-        // this.win.setMenuBarVisibility(false);
+        this.win.setMenuBarVisibility(false);
         this.win.on('closed', () => {
             app.quit();
             this.win = null;

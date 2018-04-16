@@ -1,14 +1,31 @@
-<div class="mat-app-background basic-container">
-    <mat-sidenav-container class="example-container">
-        <mat-sidenav #sidenav mode="side">
-            <app-menu></app-menu>
-        </mat-sidenav>
+<mat-sidenav-container class="all-wrap">
 
-        <mat-sidenav-content>
-            <p>
-                <button mat-button (click)="sidenav.toggle()">Menu</button>
-            </p>
+    <mat-sidenav #sidenav mode="over" opened="false">
+        <app-menu [sidenav]="sidenav"></app-menu>
+    </mat-sidenav>
+
+    <div class="page-wrap">
+        <header role="banner">
+            <mat-toolbar color="primary">
+                <button
+                        type="button"
+                        mat-icon-button
+                        (click)="sidenav.toggle()"
+                        title="Open sidenav">
+                    <mat-icon>menu</mat-icon>
+                </button>
+                {{info.appName}}
+            </mat-toolbar>
+        </header>
+        <main class="content">
             <router-outlet></router-outlet>
-        </mat-sidenav-content>
-    </mat-sidenav-container>
-</div>
+        </main>
+        <footer>
+            <mat-grid-list cols="2" rowHeight="50px">
+                <mat-grid-tile>GitHub</mat-grid-tile>
+                <mat-grid-tile>v{{info.version}}</mat-grid-tile>
+            </mat-grid-list>
+        </footer>
+    </div>
+
+</mat-sidenav-container>
